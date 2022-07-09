@@ -1,0 +1,39 @@
+<div style="width: 100%;">
+  <div style="width:{{bodyPerc}}%;margin-top: 10vh;min-width: 700px;transition: width 1s;left: 0;">
+    <div style="text-align: center;overflow: hidden;">
+      <img src="./assets/ΔΝ2.png" alt="ΔΝ logo" width="250" height="250" class="logo">
+      <h1 class="app-title">Task Manager</h1>
+    </div>
+    <div class="container" style="margin-right: auto;margin-left: auto;text-align: center;">
+      Add a task
+      <br>
+      <input type="text" class="input-text" placeholder="Type here..." (keyup.enter)="addItem()" [(ngModel)]="todoValue"/><br>
+      <div>
+        <button class="add-btn" (click)="addItem()">Add task</button>
+      </div>
+    </div>
+    <button id="hider" class="hide-btn" (click)="hideUnhide()" style="z-index:1;right:{{perc}}%;">{{arrows}}</button>
+<!-- Experimental Tab:
+    <div  style="position: absolute;top: 0;right:0;width:30%;height: 100vh;border-left: 1px solid grey;background: rgb(55,75,80);
+background: linear-gradient(45deg, rgba(55,75,80,1) 0%, rgba(0,88,113,1) 30%, rgba(19,41,47,1) 44%, rgba(79,100,107,1) 88%, rgba(90,140,157,1) 100%);">
+      <img src="./assets/DNdevLogo.png" alt="DNdevLogo"style="position: absolute;width: 100%;bottom: 25vh;opacity: 0.25;pointer-events: none">
+    </div>
+-->    
+    <div [@openClose]="isOpen ? 'open' : 'closed'" class="open-close-container" style="position: absolute;left:0;width:{{bodyPerc}}%;height: 20vh;background: none; color: #60cbff;transition: width 1s;">
+      <button class="expand-btn" (click)="toggle()">{{expand}}</button>
+      <p style="height:16vh;width: 100%;text-align: center;background:linear-gradient(0deg, rgba(96,203,255,1) 0%, rgba(0,0,0,1) 58%);border-top: 2px solid #60cbff;margin-top: 0;padding-top: 3vh;">This is a task manager, to remind me what I have to do.<br>Also, I have created it to demostrate some basics of Angular.</p>
+    </div>
+  </div>
+  <div class="listContainer" style="position: absolute;right: {{percent}}%;top: 0;width:30%;height: 100vh;background: linear-gradient(170deg, rgba(96,203,255,1) 0%, rgba(255,255,255,1) 100%);transition: right 1s">
+    <img src="./assets/DNdevLogo.png" alt="DNdevLogo"style="position: absolute;width: 100%;bottom: 25vh;opacity: 0.25;pointer-events: none">
+    <div class="list">
+      <ul>
+        <li *ngFor="let item of list">
+          <input type="checkbox" name="isDone" [(ngModel)]="item.isDone" (change)="updateCheckboxes(item.value,item.isDone)">
+          <div style="max-width: 80%;display: inline-block;" (click)="item.isDone=!item.isDone;updateCheckboxes(item.value,item.isDone)">{{item.value}}</div>
+          <button class="btn" (click)="deleteItem(item.id, item.value)">Delete</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
